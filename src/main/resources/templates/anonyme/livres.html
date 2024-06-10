@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Livres</title>
+</head>
+<body>
+    <h1>Liste des Livres</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>ISBN</th>
+            <!-- Ajoutez d'autres colonnes selon vos besoins -->
+        </tr>
+        <tr th:each="livre : ${livres}">
+            <td th:text="${livre.id_livre}">1</td>
+            <td th:text="${livre.titre}">Titre</td>
+            <td th:text="${livre.ISBN}">123456789</td>
+            <!-- Ajoutez d'autres colonnes selon vos besoins -->
+        </tr>
+    </table>
+    <a href="/livres/new">Ajouter un nouveau Livre</a>
+</body>
+</html>
