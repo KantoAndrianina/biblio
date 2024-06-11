@@ -18,6 +18,8 @@ public class LivreController {
     @GetMapping("/livres")
     public String listLivres(Model model) {
         model.addAttribute("livres", livreService.getAllLivres());
+        model.addAttribute("livreCols", livreService.getLivreCollection());
+        model.addAttribute("test", livreService.test());
         return "anonyme/livres";
     }
 
