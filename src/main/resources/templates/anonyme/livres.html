@@ -4,27 +4,39 @@
     <title>Liste des Livres</title>
 </head>
 <body>
-    <h1>Liste des Livres de <span th:text="${test}"></span></h1>
+    <h1>Liste des Livres</h1>
+    <form method="get" action="/livres/recherche">
+        <input type="text" name="query" placeholder="Rechercher..." th:value="${query}">
+        <button type="submit">Rechercher</button>
+    </form>
     <table>
         <tr>
             <th>ID</th>
             <th>Titre</th>
             <th>ISBN</th>
+            <th>Nom de la Collection</th>
+            <th>Date d'édition</th>
+            <th>Nom de l'édition</th>
+            <th>Nom de l'auteur</th>
+            <th>Numéro de cote</th>
+            <th>Couverture</th>
+            <th>Nombre de pages</th>
+            <th>Mots-clé</th>
+            <th>Age minimum</th>
         </tr>
-        <tr th:each="livre : ${livres}">
-            <td th:text="${livre.id_livre}"></td>
-            <td th:text="${livre.titre}"></td>
-            <td th:text="${livre.ISBN}"></td>
-        </tr>
-    </table>
-
-    <h1>Liste des Livres Collection</span></h1>
-    <table>
-        <tr>
-            <th>Collection</th>
-        </tr>
-        <tr th:each="test : ${livreCols}">
-            <td th:text="${test}">ok</td>
+        <tr th:each="ok : ${livres}">
+            <td th:text="${ok.idLivre}"></td>
+            <td><a th:href="@{/livres/{id}(id=${ok.idLivre})}" th:text="${ok.titre}"></a></td>
+            <td th:text="${ok.isbn}"></td>
+            <td th:text="${ok.nomCollection}"></td>
+            <td th:text="${ok.dateEdition}"></td>
+            <td th:text="${ok.nomEdition}"></td>
+            <td th:text="${ok.nomAuteur}"></td>
+            <td th:text="${ok.numeroCote}"></td>
+            <td th:text="${ok.couverture}"></td>
+            <td th:text="${ok.nbPages}"></td>
+            <td th:text="${ok.motsCle}"></td>
+            <td th:text="${ok.ageMin}"></td>
         </tr>
     </table>
 </body>

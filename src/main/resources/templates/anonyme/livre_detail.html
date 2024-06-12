@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail du Livre</title>
+</head>
+<body>
+    <h1>Détail du Livre</h1>
+
+    <table>
+        <tr>
+            <th>ID:</th>
+            <td th:text="${livre.idLivre}"></td>
+        </tr>
+        <tr>
+            <th>Titre:</th>
+            <td th:text="${livre.titre}"></td>
+        </tr>
+        <tr>
+            <th>ISBN:</th>
+            <td th:text="${livre.isbn}"></td>
+        </tr>
+        <tr>
+            <th>Nom Collection:</th>
+            <td th:text="${livre.nomCollection}"></td>
+        </tr>
+        <tr>
+            <th>Date Edition:</th>
+            <td th:text="${livre.dateEdition}"></td>
+        </tr>
+        <tr>
+            <th>Nom Edition:</th>
+            <td th:text="${livre.nomEdition}"></td>
+        </tr>
+        <tr>
+            <th>Nom Auteur:</th>
+            <td th:text="${livre.nomAuteur}"></td>
+        </tr>
+        <tr>
+            <th>Numero Cote:</th>
+            <td th:text="${livre.numeroCote}"></td>
+        </tr>
+        <tr>
+            <th>Couverture:</th>
+            <td th:text="${livre.couverture}"></td>
+        </tr>
+        <tr>
+            <th>Nb Pages:</th>
+            <td th:text="${livre.nbPages}"></td>
+        </tr>
+        <tr>
+            <th>Mots Cle:</th>
+            <td th:text="${livre.motsCle}"></td>
+        </tr>
+        <tr>
+            <th>Age Min:</th>
+            <td th:text="${livre.ageMin}"></td>
+        </tr>
+    </table>
+
+    <a href="/livres/recherche">Retour à la liste des livres</a>
+</body>
+</html>
