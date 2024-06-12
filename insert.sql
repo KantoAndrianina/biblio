@@ -36,7 +36,29 @@ INSERT INTO Livre (titre, ISBN, id_collection, date_edition, id_edition, id_aute
 ('Alias Grace', '978-0-385-72227-5', 1, '1996-09-04', 1, 1, 'FIC/ATW', 'hardcover', 460, 'roman historique, féminisme', 16),
 ('Le Cycle des Robots', '978-0-553-28825-8', 2, '1990-11-01', 2, 2, 'SF/ASI', 'paperback', 607, 'science-fiction, robots', 14);
 
+UPDATE livre SET code = CONCAT('CL', id_livre::TEXT) WHERE code IS NULL;
+
 -- Insérer des données dans la table TypePret
 INSERT INTO TypePret (nom_type_pret) VALUES 
 ('Sur place'),
 ('A Domicile');
+
+-- Insérer des données dans la table CategorieMembre
+INSERT INTO CategorieMembre (nom_categorie, nb_jour_pret, nb_jour_sanction, coefficient) VALUES 
+('Professeur', 15, 5, 2),
+('Etudiant', 10, 7, 3),
+('Salarié', 7, 7, 3),
+('Normal', 5, 5, 4);
+
+-- Insérer des données dans la table Membre
+INSERT INTO Membre (nom_membre, id_cat_membre) VALUES 
+('Jack Daniels', 1),
+('John Peters', 2),
+('Johnny Walker', 3),
+('Jim Beam', 4);
+
+-- Insérer des données dans la table ExemplaireLivre
+INSERT INTO ExemplaireLivre (id_livre) VALUES 
+(1),
+
+

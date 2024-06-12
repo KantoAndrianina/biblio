@@ -30,6 +30,15 @@ CREATE TABLE Livre (
     mots_cle VARCHAR(255),
     age_min INTEGER
 );
+ALTER TABLE livre ADD COLUMN code VARCHAR(255);
+
+CREATE SEQUENCE code_sequence
+START WITH 11
+INCREMENT BY 1
+NO MINVALUE
+NO MAXVALUE
+CACHE 1;
+
 
 CREATE TABLE TypePret (
     id_type_pret SERIAL PRIMARY KEY UNIQUE,
@@ -121,7 +130,8 @@ CREATE VIEW v_livres AS
         couverture,
         nb_pages,
         mots_cle,
-        age_min
+        age_min, 
+        code
     FROM
         Livre;
 
@@ -210,7 +220,8 @@ CREATE VIEW v_livre_complets AS
         l.couverture,
         l.nb_pages,
         l.mots_cle,
-        l.age_min
+        l.age_min,
+        l.code
     FROM
         v_livres l
     JOIN
