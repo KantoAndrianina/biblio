@@ -16,4 +16,8 @@ public interface PretRepository extends JpaRepository<Pret, Integer> {
 
     @Query("SELECT p FROM Pret p WHERE p.dateFinPret < :date AND p.dateRenduPret IS NULL")
     List<Pret> findByDateFinPretBeforeAndDateRenduPretIsNull(@Param("date") Date date);
+
+    @Query("SELECT p FROM Pret p WHERE p.dateRenduPret IS NULL")
+    List<Pret> findByDateRenduPretIsNull();
+
 }

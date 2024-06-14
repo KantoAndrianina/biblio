@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Prêts en cours</title>
+    <style>
+        .sanction {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div th:if="${prets == null or #lists.isEmpty(prets)}">
+        <p>Aucun prêt en cours</p>
+    </div>
+    <div th:unless="${prets == null or #lists.isEmpty(prets)}">
+    <h1>Liste des prêts en cours</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>ID Livre</th>
+                    <th>ID Membre</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pret : ${prets}" th:classappend="${T(projet_s6.bibliotheque.util.DateUtil).convertToLocalDate(pret.dateFinPret).isBefore(T(java.time.LocalDate).now())} ? 'sanction' : ''">
+                    <td th:text="${pret.idPret}"></td>
+                    <td th:text="${pret.dateDebutPret}"></td>
+                    <td th:text="${pret.dateFinPret}"></td>
+                    <td th:text="${pret.idExemplaire}"></td>
+                    <td th:text="${pret.idMembre}"></td>
+                    <td>
+                        <form th:action="@{/rendre-pret}" method="post">
+                            <input type="hidden" name="idPret" th:value="${pret.idPret}" />
+                            <button type="submit">Rendre</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

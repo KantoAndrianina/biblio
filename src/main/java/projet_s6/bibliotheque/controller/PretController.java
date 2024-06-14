@@ -132,5 +132,20 @@ public class PretController {
             return "admin/selection_livre";  
         }
     }
+
+    @GetMapping("/admin/prets-en-cours")
+    public String getPretsEnCours(Model model) {
+        List<Pret> pretsEnCours = pretService.getPretsEnCours();
+        model.addAttribute("prets", pretsEnCours);
+        return "admin/prets_en_cours"; // Le nom de la vue
+    }
+
+    @PostMapping("/rendre-pret")
+    public String rendrePret(@RequestParam("idPret") Integer idPret) {
+        pretService.rendrePret(idPret);
+        return "redirect:/admin/prets-en-cours";
+    }
+
 }
+
 
