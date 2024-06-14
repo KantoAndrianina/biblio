@@ -51,14 +51,58 @@ INSERT INTO CategorieMembre (nom_categorie, nb_jour_pret, nb_jour_sanction, coef
 ('Normal', 5, 5, 4);
 
 -- Insérer des données dans la table Membre
-INSERT INTO Membre (nom_membre, id_cat_membre) VALUES 
-('Jack Daniels', 1),
-('John Peters', 2),
-('Johnny Walker', 3),
-('Jim Beam', 4);
+INSERT INTO Membre (nom_membre, id_cat_membre, date_naissance) VALUES 
+('Jack Daniels', 1, '1979-06-21'),
+('John Peters', 2 , '2003-08-22'),
+('Johnny Walker', 3 , '1990-11-12'),
+('Jim Beam', 4 , '1998-10-02');
+
+-- Insérer des données dans la table Membre
+INSERT INTO Membre (nom_membre, id_cat_membre, date_naissance) VALUES 
+('Jayden Smith', 4, '2012-06-21');
+
+-- Insérer des données dans la table Membre
+INSERT INTO Membre (nom_membre, id_cat_membre, date_naissance) VALUES 
+('Jack Sparrow', 1, '2000-06-21');
 
 -- Insérer des données dans la table ExemplaireLivre
 INSERT INTO ExemplaireLivre (id_livre) VALUES 
 (1),
+(2),
+(2),
+(2),
+(3),
+(3),
+(4),
+(5),
+(6),
+(6),
+(6),
+(6),
+(7),
+(8),
+(9),
+(10),
+(10);
 
+-- Insérer des données dans la table AutorisationException
+INSERT INTO AutorisationException (id_livre, id_cat_membre, id_type_pret) VALUES 
+(7, 1, 2),
+(4, 1, 2);
 
+-- Insérer des données dans la table Pret
+INSERT INTO Pret (date_debut_pret, date_fin_pret, id_type_pret, id_exemplaire, id_membre) VALUES 
+('2024-06-11', '2024-06-26', 2, 2, 1),
+('2024-06-11', '2024-06-21', 2, 5, 2);
+
+INSERT INTO Pret (date_debut_pret, date_fin_pret, id_type_pret, id_exemplaire, id_membre, date_rendu_pret) VALUES 
+('2024-06-01', '2024-06-16', 2, 16, 1, '2024-06-11');
+
+INSERT INTO Pret (date_debut_pret, date_fin_pret, id_type_pret, id_exemplaire, id_membre) VALUES 
+('2024-06-08', '2024-06-13', 2, 1, 4);
+
+INSERT INTO Sanction (id_membre, date_debut_sanction, date_fin_sanction) VALUES 
+(1, '2024-06-10', '2024-06-21');
+
+INSERT INTO Sanction (id_membre, date_debut_sanction, date_fin_sanction) VALUES 
+(1, '2024-06-10', '2024-06-13');

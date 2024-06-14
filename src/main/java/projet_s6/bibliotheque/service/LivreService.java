@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import projet_s6.bibliotheque.repository.LivreRepository;
-import projet_s6.bibliotheque.model.Livre;
 import projet_s6.bibliotheque.model.VLivreComplet;
 
 import java.util.List;
@@ -39,6 +38,14 @@ public class LivreService {
 
     public VLivreComplet findLivreById(Integer id) {
         return LivreRepository.findLivreById(id);
+    }
+
+    public VLivreComplet findLivreByCode(String code) {
+        return LivreRepository.findLivreByCode(code);
+    }
+
+    public Integer findExemplaireRestant(Integer idLivre) {
+        return LivreRepository.findExemplaireRestant(idLivre);
     }
     
 }

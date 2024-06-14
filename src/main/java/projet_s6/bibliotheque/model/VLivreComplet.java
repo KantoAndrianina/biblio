@@ -53,8 +53,18 @@ public class VLivreComplet {
     @Column(name = "age_min")
     private Integer ageMin;
 
+    @Column(name = "code")
+    private String code;
+
+    @Column(name = "nb_livre_disponible")
+    private Integer nbLivreDisponible;
+
     public Integer getIdLivre() {
         return idLivre;
+    }
+
+    public Integer getNbLivreDisponible() {
+        return nbLivreDisponible;
     }
 
     public String getTitre() {
@@ -113,6 +123,8 @@ public class VLivreComplet {
         return ageMin;
     }
 
-    
+    public String getCode() {
+        return code;
+    }
 
 }

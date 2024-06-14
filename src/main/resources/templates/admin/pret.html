@@ -1,0 +1,38 @@
+<!-- pret.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Prêt de Livre</title>
+</head>
+<body>
+    <h1>Rechercher un Membre</h1>
+    <form th:action="@{/pret/recherche-membre}" method="get">
+        <label for="nom">Nom du Membre:</label>
+        <input type="text" id="nom" name="nom">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Date de Naissance</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="membre : ${membres}">
+                <td th:text="${membre.idMembre}"></td>
+                <td th:text="${membre.nomMembre}"></td>
+                <td th:text="${membre.dateNaissance}"></td>
+                <td th:text="${membre.nomCategorie}"></td>
+                <td>
+                    <a th:href="@{/pret/recherche-livre/{id}(id=${membre.idMembre})}">Faire un prêt</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

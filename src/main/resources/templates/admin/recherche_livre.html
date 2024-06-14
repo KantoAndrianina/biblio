@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recherche de Livre</title>
+</head>
+<body>
+    <h1>Recherche de Livre</h1>
+    <form action="#" th:action="@{/pret/recherche-livre-pret}" method="get">
+        <input type="text" name="code" placeholder="Entrer le code du livre">
+        <button type="submit">Rechercher</button>
+    </form>
+</body>
+</html>

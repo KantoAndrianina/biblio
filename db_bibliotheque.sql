@@ -58,6 +58,7 @@ CREATE TABLE Membre (
     nom_membre VARCHAR(255),
     id_cat_membre INTEGER REFERENCES CategorieMembre(id_cat_membre)
 );
+ALTER TABLE Membre ADD COLUMN date_naissance DATE;
 
 CREATE TABLE ExemplaireLivre (
     id_exemplaire SERIAL PRIMARY KEY UNIQUE,
@@ -72,8 +73,9 @@ CREATE TABLE Pret (
     id_exemplaire INTEGER REFERENCES ExemplaireLivre(id_exemplaire),
     id_membre INTEGER REFERENCES Membre(id_membre)
 );
+ALTER TABLE Pret ADD COLUMN date_rendu_pret DATE;
 
-CREATE TABLE Autorisation_Exception (
+CREATE TABLE AutorisationException (
     id_autorisation SERIAL PRIMARY KEY UNIQUE,
     id_livre INTEGER REFERENCES Livre(id_livre),
     id_cat_membre INTEGER REFERENCES CategorieMembre(id_cat_membre),
@@ -159,7 +161,8 @@ CREATE VIEW v_membres AS
     SELECT
         id_membre,
         nom_membre,
-        id_cat_membre
+        id_cat_membre,
+        date_naissance
     FROM
         Membre;
 
@@ -179,7 +182,8 @@ CREATE VIEW v_prets AS
         date_fin_pret,
         id_type_pret,
         id_exemplaire,
-        id_membre
+        id_membre, 
+        date_rendu_pret
     FROM
         Pret;
 
@@ -191,7 +195,7 @@ CREATE VIEW v_autorisation_exceptions AS
         id_cat_membre,
         id_type_pret
     FROM
-        Autorisation_Exception;
+        AutorisationException;
 
 -- Vue pour la table Sanction
 CREATE VIEW v_sanctions AS
@@ -221,7 +225,19 @@ CREATE VIEW v_livre_complets AS
         l.nb_pages,
         l.mots_cle,
         l.age_min,
-        l.code
+        l.code,
+        COALESCE((
+            SELECT 
+                COUNT(ex.id_exemplaire) - COUNT(p.id_pret)
+            FROM 
+                v_exemplaire_livres ex
+            LEFT JOIN 
+                v_prets p ON ex.id_exemplaire = p.id_exemplaire AND p.date_rendu_pret IS NULL
+            WHERE 
+                ex.id_livre = l.id_livre
+            GROUP BY 
+                ex.id_livre
+        ), 0) AS nb_livre_disponible
     FROM
         v_livres l
     JOIN
@@ -229,4 +245,32 @@ CREATE VIEW v_livre_complets AS
     JOIN
         v_editions e ON l.id_edition = e.id_edition
     JOIN
-        v_auteurs a ON l.id_auteur = a.id_auteur;
+        v_auteurs a ON l.id_auteur = a.id_auteur
+    ORDER BY l.id_livre;
+
+
+CREATE VIEW v_categorie_membre_complets AS
+    SELECT 
+        m.id_membre, 
+        m.nom_membre, 
+        m.date_naissance, 
+        cm.id_cat_membre, 
+        cm.nom_categorie, 
+        cm.nb_jour_pret, 
+        cm.nb_jour_sanction, 
+        cm.coefficient
+    FROM 
+        v_membres m
+    JOIN 
+        v_categorie_membres cm ON m.id_cat_membre = cm.id_cat_membre;
+
+CREATE VIEW v_exemplaire_dispos AS
+    SELECT 
+        ex.id_exemplaire,
+        ex.id_livre
+    FROM 
+        v_exemplaire_livres ex
+    LEFT JOIN 
+        v_prets p ON ex.id_exemplaire = p.id_exemplaire AND p.date_rendu_pret IS NULL
+    WHERE 
+        p.id_pret IS NULL;

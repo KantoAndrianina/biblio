@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirmation du Prêt</title>
+</head>
+<body>
+    <h1>Confirmation du Prêt</h1>
+    <p>Prêt confirmé pour le livre avec ID: <span th:text="${idLivre}"></span></p>
+    <p>Type de prêt: <span th:text="${typePret}"></span></p>
+    <p>ID du membre: <span th:text="${pretIdMembre}"></span></p>
+    <p>ID de l'exemplaire: <span th:text="${idExemplaire}"></span></p>
+    <p>Date deb : <span th:text="${dateDebutPret}"></span></p>
+    <p>Date Fin: <span th:text="${dateFinPret}"></span></p>
+
+</body>
+</html>

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import projet_s6.bibliotheque.model.Livre;
 import projet_s6.bibliotheque.model.VLivreComplet;
 
 
@@ -32,4 +31,15 @@ public interface LivreRepository extends JpaRepository<VLivreComplet, Integer> {
 
     @Query("SELECT l FROM VLivreComplet as l WHERE l.idLivre = :id")
     VLivreComplet findLivreById(@Param("id") Integer id);
+
+    @Query("SELECT l FROM VLivreComplet as l WHERE l.code = :code")
+    VLivreComplet findLivreByCode(@Param("code") String code);
+
+    @Query(value = "SELECT MIN(ex.id_exemplaire) AS id_exemplaire " +
+                   "FROM v_exemplaire_livres ex " +
+                   "LEFT JOIN v_prets p ON ex.id_exemplaire = p.id_exemplaire AND p.date_rendu_pret IS NULL " +
+                   "WHERE ex.id_livre = :idLivre " +
+                   "AND p.id_pret IS NULL",
+           nativeQuery = true)
+    Integer findExemplaireRestant(@Param("idLivre") Integer idLivre);
 }

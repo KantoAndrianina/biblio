@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recherche de Livre</title>
+</head>
+<body>
+    <h1>Recherche de Livre</h1>
+    <form action="#" th:action="@{/pret/recherche-livre-pret}" method="get">
+        <input type="text" name="code" placeholder="Entrer le code du livre">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <div th:if="${livre != null}">
+    <h2>Résultats de la recherche</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Livre</th>
+                <th>Titre</th>
+                <th>Code</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="livre : ${livre}">
+                <td th:text="${livre.idLivre}"></td>
+                <td th:text="${livre.titre}"></td>
+                <td th:text="${livre.code}"></td>
+                <td>
+                    <a th:if="${livre.nbLivreDisponible > 0}" th:href="@{/pret/selectionner-livre/{id}(id=${livre.idLivre})}">Sélectionner</a>
+                    <span th:if="${livre.nbLivreDisponible == 0}" style="color: red;">Rupture de stock</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div th:unless="${livre != null}">
+        <p style="color: red;">Aucun résultat trouvé. Veuillez essayer avec un autre code.</p>
+    </div>
+</body>
+</html>
