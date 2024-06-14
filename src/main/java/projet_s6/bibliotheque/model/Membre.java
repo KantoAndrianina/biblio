@@ -53,7 +53,4 @@ public class Membre {
     public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
-
-
-   
 }

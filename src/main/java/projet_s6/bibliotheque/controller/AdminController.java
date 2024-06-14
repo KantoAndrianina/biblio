@@ -58,5 +58,12 @@ public class AdminController {
 
         return "admin/livre_plus_emprunt";
     }
+
+    @GetMapping("/admin/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("adminId");
+        session.removeAttribute("pretIdMembre");
+        return "redirect:/admin/login";
+    }
 }
 

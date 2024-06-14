@@ -9,5 +9,7 @@ import projet_s6.bibliotheque.model.Membre;
 import java.util.List;
 
 public interface MembreRepository extends JpaRepository<Membre, Integer> {
-   
+    
+    @Query("SELECT m FROM Membre m WHERE lower(m.nomMembre) = lower(:nomMembre)")
+    Membre findByNomMembreIgnoreCase(@Param("nomMembre") String nomMembre);
 }
