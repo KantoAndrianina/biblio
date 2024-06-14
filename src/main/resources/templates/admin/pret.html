@@ -3,36 +3,75 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Prêt de Livre</title>
-</head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- plugins:css -->
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/feather/feather.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/ti-icons/css/themify-icons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/typicons/typicons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/simple-line-icons/css/simple-line-icons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/css/vendor.bundle.base.css">
+        <!-- endinject -->
+        <!-- Plugin css for this page -->
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/js/select.dataTables.min.css">
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/css/vertical-layout-light/style.css">
+        <!-- endinject -->
+        <link rel="shortcut icon" href="/assets/css-biblio/assets-Admin/images/favicon.png" />
+      </head>
 <body>
-    <h1>Rechercher un Membre</h1>
-    <form th:action="@{/pret/recherche-membre}" method="get">
-        <label for="nom">Nom du Membre:</label>
-        <input type="text" id="nom" name="nom">
-        <button type="submit">Rechercher</button>
-    </form>
+    <div class="container-scroller"> 
+            <div class="content-wrapper">
+                <div class="col-sm-12">
+                                <div class="card card-rounded">
+                                  <div class="card-body">
+                                    <div class="justify-content-between align-items-start">
+                                      <div>
+                                        <h2>Rechercher un Membre</h2>
+                                        <form th:action="@{/pret/recherche-membre}" method="get">
+                                            <label for="nom">Nom du Membre:</label>
+                                            <input type="text" id="nom" name="nom" placeholder="Entrer le nom du livre">
+                                            <button type="submit" class="btn btn-success text-white me-0">Rechercher</button>
+                                        </form>
+                                    
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nom</th>
+                                                    <th>Date de Naissance</th>
+                                                    <th>Email</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="membre : ${membres}">
+                                                    <td th:text="${membre.idMembre}"></td>
+                                                    <td th:text="${membre.nomMembre}"></td>
+                                                    <td th:text="${membre.dateNaissance}"></td>
+                                                    <td th:text="${membre.nomCategorie}"></td>
+                                                    <td>
+                                                        <a class="btn btn-primary text-white me-0" th:href="@{/pret/recherche-livre/{id}(id=${membre.idMembre})}">Faire un prêt</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>  <br>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Date de Naissance</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="membre : ${membres}">
-                <td th:text="${membre.idMembre}"></td>
-                <td th:text="${membre.nomMembre}"></td>
-                <td th:text="${membre.dateNaissance}"></td>
-                <td th:text="${membre.nomCategorie}"></td>
-                <td>
-                    <a th:href="@{/pret/recherche-livre/{id}(id=${membre.idMembre})}">Faire un prêt</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                                      </div>
+                                      <div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                      </div>
+                                    </div>
+                                   
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
 </body>
 </html>
