@@ -60,5 +60,13 @@ public class LivreService {
     public LivreEmprunt findLivrePlusEmprunte() {
         return livreEmpruntRepository.findLivrePlusEmprunte();
     }
+
+    public List<LivreEmprunt> findLivresRendusByMembreId(Integer id) {
+        return livreEmpruntRepository.findLivresRendusByMembreId(id);
+    }
+
+    public List<LivreEmprunt> findLivresEnCoursByMembreId(Integer id) {
+        return livreEmpruntRepository.findLivresEnCoursByMembreId(id);
+    }
     
 }

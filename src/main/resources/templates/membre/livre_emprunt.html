@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Emprunts</title>
+    <!-- Vos styles CSS et autres ressources -->
+</head>
+<body>
+
+<h2>Livres déjà empruntés</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Auteur</th>
+        <th>Date de rendu</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Boucle sur la liste des livres déjà empruntés -->
+    <tr th:each="livreEmprunt : ${livresEmpruntes}">
+        <td th:text="${livreEmprunt.titre}"></td>
+        <td th:text="${livreEmprunt.nomAuteur}"></td>
+        <td th:text="${livreEmprunt.dateRenduPret}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Emprunts en cours</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Auteur</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Boucle sur la liste des emprunts en cours -->
+    <tr th:each="livreEnCours : ${livresEnCours}">
+        <td th:text="${livreEnCours.titre}"></td>
+        <td th:text="${livreEnCours.nomAuteur}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

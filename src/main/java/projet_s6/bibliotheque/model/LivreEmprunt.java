@@ -1,11 +1,28 @@
 package projet_s6.bibliotheque.model;
 
+import java.util.Date;
+
 public class LivreEmprunt {
     private Integer idLivre;
     private String titre;
     private String nomAuteur;
     private int nombreEmprunts;
+    private Integer idMembre;
+    private Date dateRenduPret;
+
     
+    public Integer getIdMembre() {
+        return idMembre;
+    }
+    public void setIdMembre(Integer idMembre) {
+        this.idMembre = idMembre;
+    }
+    public Date getDateRenduPret() {
+        return dateRenduPret;
+    }
+    public void setDateRenduPret(Date dateRendu) {
+        this.dateRenduPret = dateRendu;
+    }
     public Integer getIdLivre() {
         return idLivre;
     }
