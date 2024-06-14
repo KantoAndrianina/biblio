@@ -53,6 +53,5 @@ public class Sanction {
         this.dateFinSanction = dateFinSanction;
     }
 
-    
 }
 

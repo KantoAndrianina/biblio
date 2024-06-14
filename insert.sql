@@ -106,3 +106,9 @@ INSERT INTO Sanction (id_membre, date_debut_sanction, date_fin_sanction) VALUES
 
 INSERT INTO Sanction (id_membre, date_debut_sanction, date_fin_sanction) VALUES 
 (1, '2024-06-10', '2024-06-13');
+
+19:33
+INSERT INTO Pret (date_debut_pret, date_fin_pret, id_type_pret, id_exemplaire, id_membre) VALUES 
+('2024-06-08', '2024-06-13', 2, 1, 4);
+INSERT INTO Pret (date_debut_pret, date_fin_pret, id_type_pret, id_exemplaire, id_membre) VALUES 
+('2024-06-07', '2024-06-12', 2, 1, 4);

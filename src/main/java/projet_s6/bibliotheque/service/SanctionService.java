@@ -2,19 +2,22 @@ package projet_s6.bibliotheque.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.annotation.PostConstruct;
 import projet_s6.bibliotheque.model.AutorisationException;
 import projet_s6.bibliotheque.model.MembreCategorie;
+import projet_s6.bibliotheque.model.Pret;
+import projet_s6.bibliotheque.model.Sanction;
 import projet_s6.bibliotheque.model.VLivreComplet;
 import projet_s6.bibliotheque.repository.LivreRepository;
 import projet_s6.bibliotheque.repository.MembreCategorieRepository;
+import projet_s6.bibliotheque.repository.PretRepository;
 import projet_s6.bibliotheque.repository.SanctionRepository;
 import projet_s6.bibliotheque.util.DateUtil;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +32,9 @@ public class SanctionService {
 
     @Autowired
     private LivreRepository livreCompletRepository;
+
+    @Autowired
+    private PretRepository pretRepository;
 
     @Autowired
     private AutorisationExceptionService autorisationExceptionService;
@@ -83,6 +89,35 @@ public class SanctionService {
             }
         }
 
+    }
+
+    @Transactional
+    public void checkAndApplySanctions() {
+        LocalDate today = LocalDate.now();
+        Date dateToday = DateUtil.convertToDate(today);
+        List<Pret> prets = pretRepository.findByDateFinPretBeforeAndDateRenduPretIsNull(dateToday);
+
+        for (Pret pret : prets) {
+            Integer membreId = pret.getIdMembre();
+            MembreCategorie membre = membreCategorieRepository.findById(membreId).orElseThrow(() -> new RuntimeException("Membre not found"));
+
+            Date dateDebutSanction = pret.getDateFinPret();
+            LocalDate localDateDebutSanction = DateUtil.convertToLocalDate(dateDebutSanction).plusDays(1);
+            LocalDate localDateFinSanction = localDateDebutSanction.plusDays(membre.getNbJourSanction() * membre.getCoefficient());
+
+            Sanction sanction = new Sanction();
+            sanction.setIdMembre(membreId);
+            sanction.setDateDebutSanction(java.sql.Date.valueOf(localDateDebutSanction));
+            sanction.setDateFinSanction(java.sql.Date.valueOf(localDateFinSanction));
+
+            sanctionRepository.save(sanction);
+        }
+        // return prets;
+    }
+
+    @PostConstruct
+    public void init() {
+        checkAndApplySanctions();
     }
 
 }

@@ -115,7 +115,7 @@ public class PretController {
             Integer idExemplaire = livreService.findExemplaireRestant(idLivre);
 
             Pret pret = pretService.creerPret(dateDebutPret, dateFinPret, typePret, idExemplaire, pretIdMembre);
-
+            
             model.addAttribute("idLivre", idLivre);
             model.addAttribute("typePret", typePret);
             model.addAttribute("pretIdMembre", pretIdMembre);
