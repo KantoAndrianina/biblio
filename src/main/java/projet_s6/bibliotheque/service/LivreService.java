@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import projet_s6.bibliotheque.repository.LivreEmpruntRepository;
 import projet_s6.bibliotheque.repository.LivreRepository;
+import projet_s6.bibliotheque.model.LivreEmprunt;
 import projet_s6.bibliotheque.model.VLivreComplet;
 
 import java.util.List;
@@ -17,6 +19,9 @@ public class LivreService {
     
     @Autowired
     private LivreRepository LivreRepository;
+
+    @Autowired
+    private LivreEmpruntRepository livreEmpruntRepository;
 
     public List<VLivreComplet> getAllLivres() {
         return LivreRepository.findAll();
@@ -46,6 +51,14 @@ public class LivreService {
 
     public Integer findExemplaireRestant(Integer idLivre) {
         return LivreRepository.findExemplaireRestant(idLivre);
+    }
+
+    public List<LivreEmprunt> findTop10LivresEmpruntes() {
+        return livreEmpruntRepository.findTop10LivresEmpruntes();
+    }
+
+    public LivreEmprunt findLivrePlusEmprunte() {
+        return livreEmpruntRepository.findLivrePlusEmprunte();
     }
     
 }

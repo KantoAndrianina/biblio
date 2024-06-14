@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import projet_s6.bibliotheque.model.LivreEmprunt;
 import projet_s6.bibliotheque.model.VLivreComplet;
 
 
@@ -42,4 +43,5 @@ public interface LivreRepository extends JpaRepository<VLivreComplet, Integer> {
                    "AND p.id_pret IS NULL",
            nativeQuery = true)
     Integer findExemplaireRestant(@Param("idLivre") Integer idLivre);
+
 }

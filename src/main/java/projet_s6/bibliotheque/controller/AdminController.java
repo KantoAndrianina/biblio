@@ -1,5 +1,7 @@
 package projet_s6.bibliotheque.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import projet_s6.bibliotheque.model.Admin;
+import projet_s6.bibliotheque.model.LivreEmprunt;
 import projet_s6.bibliotheque.service.AdminService;
-
+import projet_s6.bibliotheque.service.LivreService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -18,6 +21,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private LivreService livreService;
 
     @GetMapping("/admin/login")
     public String showLoginPage() {
@@ -40,6 +46,17 @@ public class AdminController {
     public String showDashboard(@SessionAttribute("adminId") Long adminId, Model model) {
         model.addAttribute("adminId", adminId);
         return "admin/dashboard";
+    }
+
+    @GetMapping("/admin/liste_plus_emprunt")
+    public String listePlusEmprunt(Model model) {
+        List<LivreEmprunt> livresPlusEmpruntes = livreService.findTop10LivresEmpruntes();
+        LivreEmprunt livrePlusEmprunte = livreService.findLivrePlusEmprunte();
+
+        model.addAttribute("livresPlusEmpruntes", livresPlusEmpruntes);
+        model.addAttribute("livrePlusEmprunte", livrePlusEmprunte);
+
+        return "admin/livre_plus_emprunt";
     }
 }
 
