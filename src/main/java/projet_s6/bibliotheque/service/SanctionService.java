@@ -105,12 +105,15 @@ public class SanctionService {
             LocalDate localDateDebutSanction = DateUtil.convertToLocalDate(dateDebutSanction).plusDays(1);
             LocalDate localDateFinSanction = localDateDebutSanction.plusDays(membre.getNbJourSanction() * membre.getCoefficient());
 
-            Sanction sanction = new Sanction();
-            sanction.setIdMembre(membreId);
-            sanction.setDateDebutSanction(java.sql.Date.valueOf(localDateDebutSanction));
-            sanction.setDateFinSanction(java.sql.Date.valueOf(localDateFinSanction));
+            boolean sanctionExistanteValable = sanctionRepository.existsByIdMembreAndDateFinSanctionAfter(membreId, java.sql.Date.valueOf(today));
+            if (!sanctionExistanteValable) {
+                Sanction sanction = new Sanction();
+                sanction.setIdMembre(membreId);
+                sanction.setDateDebutSanction(java.sql.Date.valueOf(localDateDebutSanction));
+                sanction.setDateFinSanction(java.sql.Date.valueOf(localDateFinSanction));
 
-            sanctionRepository.save(sanction);
+                sanctionRepository.save(sanction);
+            }
         }
         // return prets;
     }
