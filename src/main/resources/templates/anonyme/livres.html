@@ -2,42 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Liste des Livres</title>
+    <meta charset= "utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/assets/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <script src="/assets/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <h1>Liste des Livres</h1>
-    <form method="get" action="/livres/recherche">
-        <input type="text" name="query" placeholder="Rechercher..." th:value="${query}">
-        <button type="submit">Rechercher</button>
-    </form>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Titre</th>
-            <th>ISBN</th>
-            <th>Nom de la Collection</th>
-            <th>Date d'édition</th>
-            <th>Nom de l'édition</th>
-            <th>Nom de l'auteur</th>
-            <th>Numéro de cote</th>
-            <th>Couverture</th>
-            <th>Nombre de pages</th>
-            <th>Mots-clé</th>
-            <th>Age minimum</th>
-        </tr>
-        <tr th:each="ok : ${livres}">
-            <td th:text="${ok.idLivre}"></td>
-            <td><a th:href="@{/livres/{id}(id=${ok.idLivre})}" th:text="${ok.titre}"></a></td>
-            <td th:text="${ok.isbn}"></td>
-            <td th:text="${ok.nomCollection}"></td>
-            <td th:text="${ok.dateEdition}"></td>
-            <td th:text="${ok.nomEdition}"></td>
-            <td th:text="${ok.nomAuteur}"></td>
-            <td th:text="${ok.numeroCote}"></td>
-            <td th:text="${ok.couverture}"></td>
-            <td th:text="${ok.nbPages}"></td>
-            <td th:text="${ok.motsCle}"></td>
-            <td th:text="${ok.ageMin}"></td>
-        </tr>
-    </table>
+    <div class="container">
+        <h1>Liste des Livres</h1>
+       
+        <form class="row g-3" method="get" action="/livres/recherche">
+            <div class="col-auto">
+              <input type="text" name="query" placeholder="Rechercher..." th:value="${query}">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary mb-3">Rechercher</button>
+            </div>
+          </form>
+
+          
+          <div class="row">
+                <div class="col-md-3 mb-3" th:each="ok : ${livres}">
+                    <div class="card d-flex flex-column h-100">
+                        <img th:src="${ok.couverture}" class="card-img-top" alt="...">
+                        <div class="card-body flex-grow-1">
+                            <h2><a th:href="@{/livres/{id}(id=${ok.idLivre})}" th:text="${ok.titre}"><span th:text="${ok.titre}"></a></span></h2>
+                            <h4><span th:text="${ok.nomAuteur}"></span></h4>
+                            <h6><span th:text="${ok.nomEdition}"></span> / <span th:text="${ok.nomCollection}"></span></h6>
+                            <small><span th:text="${ok.motsCle}"></span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+            
+        
+        
+
+        
+    </div>
 </body>
 </html>

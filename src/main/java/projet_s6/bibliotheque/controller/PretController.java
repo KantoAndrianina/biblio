@@ -20,11 +20,13 @@ import projet_s6.bibliotheque.model.MembreCategorie;
 import projet_s6.bibliotheque.model.Pret;
 import projet_s6.bibliotheque.model.VAutorisationDetail;
 import projet_s6.bibliotheque.model.VLivreComplet;
+import projet_s6.bibliotheque.model.VPretDetail;
 import projet_s6.bibliotheque.service.AutorisationDetailService;
 import projet_s6.bibliotheque.service.AutorisationExceptionService;
 import projet_s6.bibliotheque.service.LivreService;
 import projet_s6.bibliotheque.service.MembreCategorieService;
 import projet_s6.bibliotheque.service.MembreService;
+import projet_s6.bibliotheque.service.PretDetailService;
 import projet_s6.bibliotheque.service.PretService;
 import projet_s6.bibliotheque.service.SanctionService;
 import projet_s6.bibliotheque.util.DateUtil;
@@ -45,6 +47,9 @@ public class PretController {
 
     @Autowired
     private PretService pretService;
+
+    @Autowired
+    private PretDetailService pretDetailService;
 
     @Autowired
     private AutorisationDetailService autorisationDetailService;
@@ -80,14 +85,30 @@ public class PretController {
     }
 
     @GetMapping("/pret/selectionner-livre/{id}")
-    public String selectionLivrePret(@PathVariable("id") Integer id, Model model) {
-        VLivreComplet livre = livreService.findLivreById(id);
-        model.addAttribute("livre", livre);
-        
-        List<VAutorisationDetail> autorisations = autorisationDetailService.findAutorisationDetailByLivreId(id);
-        model.addAttribute("autorisations", autorisations);
+    public String selectionLivrePret(@PathVariable("id") Integer id, Model model, HttpSession session) {
+        try {
+            VLivreComplet livre = livreService.findLivreById(id);
+            model.addAttribute("livre", livre);
+            
+            List<VAutorisationDetail> autorisations = autorisationDetailService.findAutorisationDetailByLivreId(id);
+            model.addAttribute("autorisations", autorisations);
 
-        return "admin/selection_livre"; 
+            Integer pretIdMembre = (Integer) session.getAttribute("pretIdMembre");
+            if (pretIdMembre == null) {
+                throw new Exception("Aucun ID de membre trouvé dans la session");
+            }
+
+            MembreCategorie membre = membreCategorieService.findById(pretIdMembre);
+
+            return "admin/selection_livre"; 
+
+        } catch (Exception e) {
+            List<MembreCategorie> membres = membreCategorieService.getAllMembresCategories();
+            model.addAttribute("membres", membres);
+            return "redirect:pret/recherche-membre";  
+        }
+        
+
     }
 
     @PostMapping("/pret/valider-selection")
@@ -139,13 +160,15 @@ public class PretController {
             VLivreComplet livre = livreService.findLivreById(idLivre);
             model.addAttribute("livre", livre);
             model.addAttribute("errorMessage", e.getMessage());
+            List<VAutorisationDetail> autorisations = autorisationDetailService.findAutorisationDetailByLivreId(idLivre);
+            model.addAttribute("autorisations", autorisations);
             return "admin/selection_livre";  
         }
     }
 
     @GetMapping("/admin/prets-en-cours")
     public String getPretsEnCours(Model model) {
-        List<Pret> pretsEnCours = pretService.getPretsEnCours();
+        List<VPretDetail> pretsEnCours = pretDetailService.findPretsEnCours();
         model.addAttribute("prets", pretsEnCours);
         return "admin/prets_en_cours"; // Le nom de la vue
     }
@@ -154,6 +177,13 @@ public class PretController {
     public String rendrePret(@RequestParam("idPret") Integer idPret) {
         pretService.rendrePret(idPret);
         return "redirect:/admin/prets-en-cours";
+    }
+
+    @GetMapping("/admin/historique")
+    public String getHistorique(Model model) {
+        List<VPretDetail> pretsEnCours = pretDetailService.findPretsRendus();
+        model.addAttribute("prets", pretsEnCours);
+        return "admin/historique"; // Le nom de la vue
     }
 
 }

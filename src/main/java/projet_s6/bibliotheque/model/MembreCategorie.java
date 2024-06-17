@@ -17,6 +17,8 @@ public class MembreCategorie {
     @Column(name = "date_naissance")
     private Date dateNaissance;
 
+    private Integer age;
+
     @Column(name = "id_cat_membre")
     private Integer idCatMembre;
 
@@ -31,7 +33,7 @@ public class MembreCategorie {
 
     @Column(name = "coefficient")
     private Integer coefficient;
-
+    
     public Integer getIdMembre() {
         return idMembre;
     }
@@ -62,6 +64,10 @@ public class MembreCategorie {
 
     public Date getDateNaissance() {
         return dateNaissance;
+    }
+
+    public Integer getAge() {
+        return age;
     }
     
 }

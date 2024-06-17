@@ -5,6 +5,7 @@ import java.util.Date;
 public class LivreEmprunt {
     private Integer idLivre;
     private String titre;
+    private String couverture;
     private String nomAuteur;
     private int nombreEmprunts;
     private Integer idMembre;
@@ -55,6 +56,12 @@ public class LivreEmprunt {
         this.nombreEmprunts = nombreEmprunts;
     }
     public LivreEmprunt() {
+    }
+    public String getCouverture() {
+        return couverture;
+    }
+    public void setCouverture(String couverture) {
+        this.couverture = couverture;
     }
     
     

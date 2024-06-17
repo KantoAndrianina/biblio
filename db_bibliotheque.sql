@@ -254,6 +254,7 @@ CREATE VIEW v_categorie_membre_complets AS
         m.id_membre, 
         m.nom_membre, 
         m.date_naissance, 
+        DATE_PART('year', age(m.date_naissance)) AS age,
         cm.id_cat_membre, 
         cm.nom_categorie, 
         cm.nb_jour_pret, 
@@ -282,3 +283,33 @@ CREATE VIEW v_autorisation_details AS
     JOIN Livre l ON ae.id_livre = l.id_livre
     JOIN CategorieMembre cm ON ae.id_cat_membre = cm.id_cat_membre
     JOIN TypePret tp ON ae.id_type_pret = tp.id_type_pret;
+
+CREATE OR REPLACE VIEW v_pret_details AS
+    SELECT 
+        p.id_pret, 
+        p.date_debut_pret, 
+        p.date_fin_pret, 
+        p.date_rendu_pret,
+        p.id_type_pret, 
+        tp.nom_type_pret,
+        l.titre, 
+        l.code, 
+        p.id_exemplaire, 
+        p.id_membre, 
+        m.nom_membre, 
+        cm.id_cat_membre,
+        cm.nom_categorie,
+        m.date_naissance,
+        DATE_PART('year', AGE(m.date_naissance)) AS age_membre
+    FROM 
+        Pret p
+    JOIN 
+        TypePret tp ON p.id_type_pret = tp.id_type_pret
+    JOIN 
+        ExemplaireLivre e ON p.id_exemplaire = e.id_exemplaire
+    JOIN 
+        Livre l ON e.id_livre = l.id_livre
+    JOIN 
+        Membre m ON p.id_membre = m.id_membre
+    JOIN 
+        CategorieMembre cm ON m.id_cat_membre = cm.id_cat_membre;

@@ -4,61 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail du Livre</title>
+    <link rel="stylesheet" href="/assets/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <script src="/assets/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <h1>Détail du Livre</h1>
+    <div class="container">
 
-    <table>
-        <tr>
-            <th>ID:</th>
-            <td th:text="${livre.code}"></td>
-        </tr>
-        <tr>
-            <th>Titre:</th>
-            <td th:text="${livre.titre}"></td>
-        </tr>
-        <tr>
-            <th>ISBN:</th>
-            <td th:text="${livre.isbn}"></td>
-        </tr>
-        <tr>
-            <th>Nom Collection:</th>
-            <td th:text="${livre.nomCollection}"></td>
-        </tr>
-        <tr>
-            <th>Date Edition:</th>
-            <td th:text="${livre.dateEdition}"></td>
-        </tr>
-        <tr>
-            <th>Nom Edition:</th>
-            <td th:text="${livre.nomEdition}"></td>
-        </tr>
-        <tr>
-            <th>Nom Auteur:</th>
-            <td th:text="${livre.nomAuteur}"></td>
-        </tr>
-        <tr>
-            <th>Numero Cote:</th>
-            <td th:text="${livre.numeroCote}"></td>
-        </tr>
-        <tr>
-            <th>Couverture:</th>
-            <td th:text="${livre.couverture}"></td>
-        </tr>
-        <tr>
-            <th>Nb Pages:</th>
-            <td th:text="${livre.nbPages}"></td>
-        </tr>
-        <tr>
-            <th>Mots Cle:</th>
-            <td th:text="${livre.motsCle}"></td>
-        </tr>
-        <tr>
-            <th>Age Min:</th>
-            <td th:text="${livre.ageMin}"></td>
-        </tr>
-    </table>
+        <div class="row">
+            <h1>Détail du Livre</h1>
+            <div class="col-md-4 mb-4">
+                <img th:src="${livre.couverture}" class="img-fluid" alt="Couverture du livre">
+            </div>
+            <div class="col-md-8 mb-4">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th style="width: 30%">Code:</th>
+                            <td th:text="${livre.code}"></td>
+                        </tr>
+                        <tr>
+                            <th>Titre:</th>
+                            <td th:text="${livre.titre}"></td>
+                        </tr>
+                        <tr>
+                            <th>ISBN:</th>
+                            <td th:text="${livre.isbn}"></td>
+                        </tr>
+                        <tr>
+                            <th>Nom Collection:</th>
+                            <td th:text="${livre.nomCollection}"></td>
+                        </tr>
+                        <tr>
+                            <th>Date Edition:</th>
+                            <td th:text="${livre.dateEdition}"></td>
+                        </tr>
+                        <tr>
+                            <th>Nom Edition:</th>
+                            <td th:text="${livre.nomEdition}"></td>
+                        </tr>
+                        <tr>
+                            <th>Nom Auteur:</th>
+                            <td th:text="${livre.nomAuteur}"></td>
+                        </tr>
+                        <tr>
+                            <th>Numero Cote:</th>
+                            <td th:text="${livre.numeroCote}"></td>
+                        </tr>
+                        <tr>
+                            <th>Couverture:</th>
+                            <td th:text="${livre.couverture}"></td>
+                        </tr>
+                        <tr>
+                            <th>Nb Pages:</th>
+                            <td th:text="${livre.nbPages}"></td>
+                        </tr>
+                        <tr>
+                            <th>Mots Cle:</th>
+                            <td th:text="${livre.motsCle}"></td>
+                        </tr>
+                        <tr>
+                            <th>Age Min:</th>
+                            <td th:text="${livre.ageMin}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        
 
-    <a href="/livres/recherche">Retour à la liste des livres</a>
+        <a href="/livres/recherche">Retour à la liste des livres</a>
+    </div>
+
 </body>
 </html>

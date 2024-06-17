@@ -20,13 +20,20 @@ public interface LivreRepository extends JpaRepository<VLivreComplet, Integer> {
     @Query(value = "SELECT id_edition + id_auteur as sum, numero_cote FROM livre", nativeQuery = true)
     List<Object[]> findSumAndNumeroCote();
 
+    // @Query("SELECT l FROM VLivreComplet l WHERE " +
+    //     "LOWER(l.titre) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+    //     "LOWER(l.isbn) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+    //     "LOWER(l.nomCollection) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+    //     "LOWER(l.nomEdition) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+    //     "LOWER(l.nomAuteur) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+    //     "LOWER(l.numeroCote) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+    //     "LOWER(l.motsCle) LIKE LOWER(CONCAT('%', :query, '%'))")
+        
     @Query("SELECT l FROM VLivreComplet l WHERE " +
         "LOWER(l.titre) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-        "LOWER(l.isbn) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
         "LOWER(l.nomCollection) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
         "LOWER(l.nomEdition) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
         "LOWER(l.nomAuteur) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-        "LOWER(l.numeroCote) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
         "LOWER(l.motsCle) LIKE LOWER(CONCAT('%', :query, '%'))")
     List<VLivreComplet> searchLivres(@Param("query") String query);
 
@@ -43,5 +50,7 @@ public interface LivreRepository extends JpaRepository<VLivreComplet, Integer> {
                    "AND p.id_pret IS NULL",
            nativeQuery = true)
     Integer findExemplaireRestant(@Param("idLivre") Integer idLivre);
+
+
 
 }

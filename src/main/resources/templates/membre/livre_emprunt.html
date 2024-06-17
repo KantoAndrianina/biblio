@@ -3,45 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Emprunts</title>
-    <!-- Vos styles CSS et autres ressources -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/assets/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <script src="/assets/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
-<h2>Livres déjà empruntés</h2>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Titre</th>
-        <th>Auteur</th>
-        <th>Date de rendu</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Boucle sur la liste des livres déjà empruntés -->
-    <tr th:each="livreEmprunt : ${livresEmpruntes}">
-        <td th:text="${livreEmprunt.titre}"></td>
-        <td th:text="${livreEmprunt.nomAuteur}"></td>
-        <td th:text="${livreEmprunt.dateRenduPret}"></td>
-    </tr>
-    </tbody>
-</table>
-
-<h2>Emprunts en cours</h2>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Titre</th>
-        <th>Auteur</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Boucle sur la liste des emprunts en cours -->
-    <tr th:each="livreEnCours : ${livresEnCours}">
-        <td th:text="${livreEnCours.titre}"></td>
-        <td th:text="${livreEnCours.nomAuteur}"></td>
-    </tr>
-    </tbody>
-</table>
+    <div class="container">
+        
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+                <form class="d-flex ms-auto">
+                    <a class="btn btn-outline-primary me-2" type="button" th:href="@{/membre/logout}">Log out</a>
+                </form>
+            </div>
+        </nav>
+        
+        
+        <h2>Livres déjà empruntés</h2>
+            <div class="row">
+                <div class="col-md-3 mb-3" th:each="livreEmprunt : ${livresEmpruntes}">
+                    <div class="card d-flex flex-column h-100">
+                        <img th:src="${livreEmprunt.couverture}" class="card-img-top" alt="...">
+                        <div class="card-body flex-grow-1">
+                            <h2><span th:text="${livreEmprunt.titre}"></span></h2>
+                            <h4><span th:text="${livreEmprunt.nomAuteur}"></span></h4>
+                            <h6>Rendu le <span th:text="${livreEmprunt.dateRenduPret}"></span></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <hr>
+        <h2>Emprunts en cours</h2>
+            <div class="row">
+                <div class="col-md-3 mb-3" th:each="livreEnCours : ${livresEnCours}">
+                    <div class="card d-flex flex-column h-100">
+                        <img th:src="${livreEnCours.couverture}" class="card-img-top" alt="...">
+                        <div class="card-body flex-grow-1">
+                            <h2><span th:text="${livreEnCours.titre}"></span></h2>
+                            <h4><span th:text="${livreEnCours.nomAuteur}"></span></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 
 </body>
 </html>

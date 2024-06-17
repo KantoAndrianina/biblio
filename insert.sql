@@ -38,6 +38,47 @@ INSERT INTO Livre (titre, ISBN, id_collection, date_edition, id_edition, id_aute
 
 UPDATE livre SET code = CONCAT('CL', id_livre::TEXT) WHERE code IS NULL;
 
+Update livre
+set couverture ='/images/conte_servante.jpeg' 
+where id_livre = 1;
+
+Update livre
+set couverture ='/images/fondation.jpeg' 
+where id_livre = 2;
+
+Update livre
+set couverture ='/images/steve_jobs.jpeg' 
+where id_livre = 3;
+
+
+Update livre
+set couverture ='/images/pilliers_de_la_terre.jpeg' 
+where id_livre = 4;
+
+Update livre
+set couverture ='/images/oryx_et_crake.jpg' 
+where id_livre = 5;
+
+Update livre
+set couverture ='/images/robots.jpeg' 
+where id_livre = 6;
+
+Update livre
+set couverture ='/images/einstein.jpeg' 
+where id_livre = 7;
+
+Update livre
+set couverture ='/images/monde_sans_fin.jpeg' 
+where id_livre = 8;
+
+Update livre
+set couverture ='/images/alias_grace.jpeg' 
+where id_livre = 9;
+
+Update livre
+set couverture ='/images/cycle_des_robots.jpeg' 
+where id_livre = 10;
+
 -- Insérer des données dans la table TypePret
 INSERT INTO TypePret (nom_type_pret) VALUES 
 ('Sur place'),

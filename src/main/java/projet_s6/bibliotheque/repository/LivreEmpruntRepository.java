@@ -61,7 +61,7 @@ public class LivreEmpruntRepository {
     }
 
     public List<LivreEmprunt> findLivresRendusByMembreId(Integer idMembre) {
-        String sql = "SELECT l.id_livre, l.titre AS titre_livre, a.nom_auteur AS nom_auteur, p.id_membre, p.date_rendu_pret " +
+        String sql = "SELECT l.id_livre, l.titre AS titre_livre,l.couverture, a.nom_auteur AS nom_auteur, p.id_membre, p.date_rendu_pret " +
                      "FROM Livre l " +
                      "JOIN Auteur a ON l.id_auteur = a.id_auteur " +
                      "JOIN ExemplaireLivre e ON l.id_livre = e.id_livre " +
@@ -73,6 +73,7 @@ public class LivreEmpruntRepository {
             LivreEmprunt livre = new LivreEmprunt();
             livre.setIdLivre(resultSet.getInt("id_livre"));
             livre.setTitre(resultSet.getString("titre_livre"));
+            livre.setCouverture(resultSet.getString("couverture"));
             livre.setNomAuteur(resultSet.getString("nom_auteur"));
             livre.setIdMembre(resultSet.getInt("id_membre"));
             livre.setDateRenduPret(resultSet.getDate("date_rendu_pret"));
@@ -81,7 +82,7 @@ public class LivreEmpruntRepository {
     }
 
     public List<LivreEmprunt> findLivresEnCoursByMembreId(Integer idMembre) {
-        String sql = "SELECT l.id_livre, l.titre AS titre_livre, a.nom_auteur AS nom_auteur, p.id_membre, p.date_rendu_pret " +
+        String sql = "SELECT l.id_livre, l.titre AS titre_livre, l.couverture, a.nom_auteur AS nom_auteur, p.id_membre, p.date_rendu_pret " +
                      "FROM Livre l " +
                      "JOIN Auteur a ON l.id_auteur = a.id_auteur " +
                      "JOIN ExemplaireLivre e ON l.id_livre = e.id_livre " +
@@ -93,6 +94,7 @@ public class LivreEmpruntRepository {
             LivreEmprunt livre = new LivreEmprunt();
             livre.setIdLivre(resultSet.getInt("id_livre"));
             livre.setTitre(resultSet.getString("titre_livre"));
+            livre.setCouverture(resultSet.getString("couverture"));
             livre.setNomAuteur(resultSet.getString("nom_auteur"));
             livre.setIdMembre(resultSet.getInt("id_membre"));
             livre.setDateRenduPret(resultSet.getDate("date_rendu_pret"));

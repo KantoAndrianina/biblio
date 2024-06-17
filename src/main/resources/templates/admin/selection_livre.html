@@ -77,7 +77,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                  <a class="nav-link" href="#">
+                    <a class="nav-link" th:href="@{/admin/historique}">
                       <i class="menu-icon mdi mdi-database"></i>
                       <span class="menu-title">Historique de pret</span>
                     </a>
@@ -126,7 +126,7 @@
                                                                 <div>
                                                                     <h5 class="text-success"><span th:text="${livre.code}"></span></h5>
                                                                     <h2 class="text-light"><span th:text="${livre.titre}"></span></h2>
-                                                                    <h4 class="text-warning">Auteur</h4>
+                                                                    <h4 class="text-warning"><span th:text="${livre.nomAuteur}"></span></h4>
                                                                     <img src="/images/harry_potter_1.png" alt="harry_potter_1" class="img-fluid mb-2">
                                                                 </div>
                                                             </div>
@@ -189,6 +189,9 @@
                                                           </div>
                                                       </div>
                                                     </div> <!-- Fin de la nouvelle rangée -->
+                                                    <div th:if="${errorMessage}" style="color: red;" class="alert alert-danger">
+                                                      <p th:text="${errorMessage}"></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

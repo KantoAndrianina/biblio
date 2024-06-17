@@ -1,23 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-
-<form th:action="@{/membre/login-post}" method="post">
-    <div>
-        <label for="nomMembre">Nom de membre :</label>
-        <input type="text" id="nomMembre" name="nomMembre" required>
-    </div>
-    <div>
-        <button type="submit">Login</button>
-    </div>
-    <div th:if="${error}" style="color: red;">
-        <p th:text="${error}"></p>
-    </div>
-</form>
-
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title> Admin </title>
+        <!-- plugins:css -->
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/assets-Admin/vendors/feather/feather.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/assets-Admin/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/assets-Admin/vendors/ti-icons/css/themify-icons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/assets-Admin/vendors/typicons/typicons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/assets-Admin/vendors/simple-line-icons/css/simple-line-icons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/assets-Admin/vendors/css/vendor.bundle.base.css">
+        <!-- endinject -->
+        <!-- Plugin css for this page -->
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/css/vertical-layout-light/style.css">
+        <!-- endinject -->
+        <link rel="shortcut icon" href="/assets/css-biblio/assets-Admin/images/favicon.png" />
+      </head>
+      <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+          <div class="content-wrapper d-flex align-items-center auth px-0">
+            <div class="row w-100 mx-0">
+              <div class="col-lg-4 mx-auto">
+                <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                  <div class="brand-logo">
+                  <h2>Hello</h2>
+                    <!-- <img src="/assets/css-biblio/assets-Admin/images/logo.svg" alt="logo"> -->
+                  </div>
+                  <!-- <h6 class="fw-light">Sign in to continue.</h6> -->
+                  <form th:action="@{/membre/login-post}" method="post">
+                    <div class="form-group">
+                        <label for="mdp">Membre</label>
+                        <input type="text" id="nomMembre" name="nomMembre" value="Jack Sparrow" class="form-control form-control-lg" required>
+                      <!-- <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username"> -->
+                    </div>
+                    <div  th:if="${error}" id="error-message" class="alert alert-danger">
+                        <p th:text="${error}" style="color: red;"></p>
+                    </div>
+                    <div class="mt-3">
+                      <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">LOG IN</button>
+                    </div>
+                    </div>
+                    <div class="mb-2">
+                      <!-- <button type="button" class="btn btn-block btn-facebook auth-form-btn">
+                        <i class="ti-facebook me-2"></i>Connect using facebook
+                      </button> -->
+                    </div>
+                    
+                  </form>
+               
+              
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src="/assets/css-biblio/assets-Admin/vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <script src="/assets/css-biblio/assets-Admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+      <script src="/assets/css-biblio/assets-Admin/js/off-canvas.js"></script>
+      <script src="/assets/css-biblio/assets-Admin/js/hoverable-collapse.js"></script>
+      <script src="/assets/css-biblio/assets-Admin/js/template.js"></script>
+      <script src="/assets/css-biblio/assets-Admin/js/settings.js"></script>
+      <script src="/assets/css-biblio/assets-Admin/js/todolist.js"></script>
+      <!-- endinject -->
+    
+      </div>
+   
+    
+  </body>
 </html>

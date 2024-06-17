@@ -77,7 +77,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                  <a class="nav-link" href="#">
+                    <a class="nav-link" th:href="@{/admin/historique}">
                       <i class="menu-icon mdi mdi-database"></i>
                       <span class="menu-title">Historique de pret</span>
                     </a>
@@ -126,20 +126,22 @@
                                           <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Livre</th>
+                                                <th>Membre</th>
+                                                <th>Catégorie</th>
                                                 <th>Date de début</th>
                                                 <th>Date de fin</th>
-                                                <th>ID Livre</th>
-                                                <th>ID Membre</th>
                                                 <th>Action</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             <tr th:each="pret : ${prets}" th:classappend="${T(projet_s6.bibliotheque.util.DateUtil).convertToLocalDate(pret.dateFinPret).isBefore(T(java.time.LocalDate).now())} ? 'sanction' : ''">
                                                 <td th:text="${pret.idPret}"></td>
+                                                <td th:text="${pret.titre}"></td>
+                                                <td th:text="${pret.nomMembre}"></td>
+                                                <td th:text="${pret.nomCategorie}"></td>
                                                 <td th:text="${pret.dateDebutPret}"></td>
                                                 <td th:text="${pret.dateFinPret}"></td>
-                                                <td th:text="${pret.idExemplaire}"></td>
-                                                <td th:text="${pret.idMembre}"></td>
                                                 <td>
                                                     <form th:action="@{/rendre-pret}" method="post">
                                                         <input type="hidden" name="idPret" th:value="${pret.idPret}" />
