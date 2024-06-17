@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title> Faire un Pret</title>
+        <title> Pret en cours </title>
         <!-- plugins:css -->
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/feather/feather.css">
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/mdi/css/materialdesignicons.min.css">
@@ -63,8 +63,8 @@
                       <span class="menu-title">Dashboard</span>
                     </a>
                   </li>
-                  <li class="nav-item nav-category active">Pret</li>
-                  <li class="nav-item active">
+                  <li class="nav-item nav-category">Pret</li>
+                  <li class="nav-item">
                     <a class="nav-link" th:href="@{/pret/recherche-membre}">
                       <i class="menu-icon mdi mdi-file-document"></i>
                       <span class="menu-title">Faire un prêt</span>
@@ -107,48 +107,73 @@
                         
                         <div class="tab-content tab-content-basic">
                           <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
-                           
+                              
 
-
+                            
                             <div class="row">
-                              <div class="col-lg-12 grid-margin stretch-card">
-                                <div class="card">
-                                  <div class="card-body">
-                                    <h4 class="card-title">Rechercher un Livre</h4>
-                                    <form th:action="@{/pret/recherche-livre-pret}" method="get" class="forms-sample">
-                                      <div class="form-group">
-                                          <div class="d-flex">
-                                              <input type="text" name="code" placeholder="Entrer le code du livre" class="form-control me-2" style="max-width: 300px;">
-                                              <button type="submit" class="btn btn-primary text-white">Rechercher</button>
-                                          </div>
+                                <div class="col-lg-12 grid-margin stretch-card">
+                                  <div class="card">
+                                    <div class="card-body">
+                                    <div th:if="${sanctions == null or #lists.isEmpty(sanctions)}">
+                                        <h4>Aucune sanctions en cours</h4>
+                                    </div>
+                                    <div th:unless="${sanctions == null or #lists.isEmpty(sanctions)}">
+
+                                      <h4 class="card-title">Liste des sanctions en cours</h4>
+                                      
+                                      <div class="table-responsive">
+                                        <table class="table">
+                                          <thead>
+                                            <tr>
+                                                <th>Membre</th>
+                                                <th>Catégorie</th>
+                                                <th>Date début</th>
+                                                <th>Date de fin</th>
+                                                <th class="align-right">Nb jour de sanction</th>
+                                                <th class="align-right"> Coeff</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr th:each="sanction : ${sanctions}">
+                                                <td th:text="${sanction.nomMembre}"></td>
+                                                <td th:text="${sanction.nomCategorie}"></td>
+                                                <td th:text="${sanction.dateDebutSanction}"></td>
+                                                <td th:text="${sanction.dateFinSanction}"></td>
+                                                <td class="align-right" th:text="${sanction.nbJourSanction}"></td>
+                                                <td class="align-right" th:text="${sanction.coefficient}"></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
                                       </div>
-                                    </form>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                                
 
 
+
+
+                        </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+              <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bibliotheque - Examen Final - Framework</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">ETU2135 - N°44</span>
+              </div>
+            </footer>
+            <!-- partial -->
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bibliotheque - Examen Final - Framework</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">ETU2135 - N°44</span>
-            </div>
-          </footer>
-          <!-- partial -->
+          <!-- main-panel ends -->
         </div>
-        <!-- main-panel ends -->
+        <!-- page-body-wrapper ends -->
       </div>
-    <!-- page-body-wrapper ends -->
-    </div>
 
 
 <script src="/assets/css-biblio/assets-Admin/vendors/js/vendor.bundle.base.js"></script>

@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import projet_s6.bibliotheque.model.Admin;
 import projet_s6.bibliotheque.model.LivreEmprunt;
+import projet_s6.bibliotheque.model.VPretDetail;
+import projet_s6.bibliotheque.model.VSanctionDetail;
 import projet_s6.bibliotheque.service.AdminService;
 import projet_s6.bibliotheque.service.LivreService;
+import projet_s6.bibliotheque.service.SanctionDetailService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -24,6 +27,9 @@ public class AdminController {
 
     @Autowired
     private LivreService livreService;
+
+    @Autowired
+    private SanctionDetailService sanctionDetailService;
 
     @GetMapping("/admin/login")
     public String showLoginPage() {
@@ -51,6 +57,13 @@ public class AdminController {
         model.addAttribute("livrePlusEmprunte", livrePlusEmprunte);
         model.addAttribute("adminId", adminId);
         return "admin/dashboard";
+    }
+
+    @GetMapping("/admin/sanction")
+    public String getSanction(HttpSession session, Model model) {
+        List<VSanctionDetail> sanctions = sanctionDetailService.findAll();
+        model.addAttribute("sanctions", sanctions);
+        return "admin/sanction";
     }
 
     @GetMapping("/admin/logout")

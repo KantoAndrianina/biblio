@@ -84,7 +84,7 @@
                   </li>
                   <li class="nav-item nav-category">Sanction</li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" th:href="@{/admin/sanction}">
                       <i class="menu-icon mdi mdi-block-helper"></i>
                       <span class="menu-title">Membres sanctionnés</span>
                     </a>
@@ -115,7 +115,7 @@
                                   <div class="card">
                                     <div class="card-body">
                                     <div th:if="${prets == null or #lists.isEmpty(prets)}">
-                                        <h4>Aucun prêt en cours</h4>
+                                        <h4>Aucun phistorique</h4>
                                     </div>
                                     <div th:unless="${prets == null or #lists.isEmpty(prets)}">
 

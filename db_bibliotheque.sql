@@ -313,3 +313,18 @@ CREATE OR REPLACE VIEW v_pret_details AS
         Membre m ON p.id_membre = m.id_membre
     JOIN 
         CategorieMembre cm ON m.id_cat_membre = cm.id_cat_membre;
+
+CREATE VIEW v_sanction_details AS
+SELECT
+    s.id_sanction,
+    s.id_membre,
+    m.nom_membre,
+    cm.nom_categorie,
+    cm.nb_jour_sanction,
+    cm.coefficient,
+    s.date_debut_sanction,
+    s.date_fin_sanction
+FROM
+    Sanction s
+    JOIN Membre m ON s.id_membre = m.id_membre
+    JOIN CategorieMembre cm ON m.id_cat_membre = cm.id_cat_membre;
