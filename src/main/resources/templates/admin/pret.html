@@ -1,11 +1,10 @@
-<!-- pret.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Prêt de Livre</title>
+    <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title> Faire un Pret </title>
         <!-- plugins:css -->
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/feather/feather.css">
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/mdi/css/materialdesignicons.min.css">
@@ -13,6 +12,7 @@
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/typicons/typicons.css">
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/simple-line-icons/css/simple-line-icons.css">
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="/assets/style.css">
         <!-- endinject -->
         <!-- Plugin css for this page -->
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -23,55 +23,182 @@
         <!-- endinject -->
         <link rel="shortcut icon" href="/assets/css-biblio/assets-Admin/images/favicon.png" />
       </head>
-<body>
-    <div class="container-scroller"> 
-            <div class="content-wrapper">
-                <div class="col-sm-12">
-                                <div class="card card-rounded">
-                                  <div class="card-body">
-                                    <div class="justify-content-between align-items-start">
-                                      <div>
-                                        <h2>Rechercher un Membre</h2>
-                                        <form th:action="@{/pret/recherche-membre}" method="get">
-                                            <label for="nom">Nom du Membre:</label>
-                                            <input type="text" id="nom" name="nom" placeholder="Entrer le nom du livre">
-                                            <button type="submit" class="btn btn-success text-white me-0">Rechercher</button>
-                                        </form>
-                                    
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Nom</th>
-                                                    <th>Date de Naissance</th>
-                                                    <th>Email</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="membre : ${membres}">
-                                                    <td th:text="${membre.idMembre}"></td>
-                                                    <td th:text="${membre.nomMembre}"></td>
-                                                    <td th:text="${membre.dateNaissance}"></td>
-                                                    <td th:text="${membre.nomCategorie}"></td>
-                                                    <td>
-                                                        <a class="btn btn-primary text-white me-0" th:href="@{/pret/recherche-livre/{id}(id=${membre.idMembre})}">Faire un prêt</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>  <br>
+    <body>
+        <div class="container-scroller"> 
+            <!-- partial:partials/_navbar.html -->
+            <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+              <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                  <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                    <span class="icon-menu"></span>
+                  </button>
+                </div>
+                <div>
+                 
+                </div>
+              </div>
+              <div class="navbar-menu-wrapper d-flex align-items-top"> 
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+                    <a class="btn btn-dark btn-rounded btn-fw" th:href="@{/admin/logout}">
+                      Log Out</a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                    </div>
+                  </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+                  <span class="mdi mdi-menu"></span>
+                </button>
+              </div>
+            </nav>
+            <!-- partial -->
+            <div class="container-fluid page-body-wrapper">
+              <!-- partial -->
+              <!-- partial:partials/_sidebar.html -->
+              <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/dashboard}">
+                      <i class="mdi mdi-grid-large menu-icon"></i>
+                      <span class="menu-title">Dashboard</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-category">Pret</li>
+                  <li class="nav-item">
+                    <a class="nav-link" th:href="@{/pret/recherche-membre}">
+                      <i class="menu-icon mdi mdi-file-document"></i>
+                      <span class="menu-title">Faire un prêt</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/prets-en-cours}">
+                      <i class="menu-icon mdi mdi-rotate-right"></i>
+                      <span class="menu-title">Pret en cours</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="#">
+                      <i class="menu-icon mdi mdi-database"></i>
+                      <span class="menu-title">Historique de pret</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-category">Sanction</li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <i class="menu-icon mdi mdi-block-helper"></i>
+                      <span class="menu-title">Membres sanctionnés</span>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/ui-features/buttons.html">Buttons</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/ui-features/typography.html">Typography</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+              <!-- partial -->
+              <div class="main-panel">
+                <div class="content-wrapper">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="home-tab">
+                        
+                        <div class="tab-content tab-content-basic">
+                          <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
+                           
 
+
+                            <div class="row">
+                              <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                  <div class="card-body">
+
+                                    <h4 class="card-title">Rechercher un Membre</h4>
+                                    <form th:action="@{/pret/recherche-membre}" method="get" class="forms-sample">
+                                      <div class="form-group">
+                                          <div class="d-flex">
+                                              <input type="text" id="nom" name="nom" placeholder="Entrer le nom du membre" class="form-control me-2" style="max-width: 300px;">
+                                              <button type="submit" class="btn btn-primary text-white">Rechercher</button>
+                                          </div>
                                       </div>
-                                      <div>
-                                        </div>
-                                        </div>
+                                    
+                                    </form>
+
+                                    <div class="table-responsive">
+                                      <table class="table">
+                                        <thead>
+                                          <tr>
+                                              <th>ID</th>
+                                              <th>Nom</th>
+                                              <th>Date de Naissance</th>
+                                              <th>Catégorie</th>
+                                              <th>Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr th:each="membre : ${membres}">
+                                              <td th:text="${membre.idMembre}"></td>
+                                              <td th:text="${membre.nomMembre}"></td>
+                                              <td th:text="${membre.dateNaissance}"></td>
+                                              <td th:text="${membre.nomCategorie}"></td>
+                                              <td>
+                                                  <a class="btn btn-primary text-white me-0" th:href="@{/pret/recherche-livre/{id}(id=${membre.idMembre})}">Faire un prêt</a>
+                                              </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
                                     </div>
-                                      </div>
-                                    </div>
-                                   
+
                                   </div>
                                 </div>
                               </div>
                             </div>
+
+                                        
+                                        
+                                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+              <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bibliotheque - Examen Final - Framework</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">ETU2135 - N°44</span>
+              </div>
+            </footer>
+            <!-- partial -->
+          </div>
+          <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+
+
+<script src="/assets/css-biblio/assets-Admin/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="/assets/css-biblio/assets-Admin/vendors/chart.js/Chart.min.js"></script>
+<script src="/assets/css-biblio/assets-Admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/css-biblio/assets-Admin/vendors/progressbar.js/progressbar.min.js"></script>
+
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="/assets/css-biblio/assets-Admin/js/off-canvas.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/hoverable-collapse.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/template.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/settings.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="/assets/css-biblio/assets-Admin/js/dashboard.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/Chart.roundedBarCharts.js"></script>
+
 </body>
 </html>

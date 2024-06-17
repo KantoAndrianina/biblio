@@ -1,137 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détail du Livre</title>
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/feather/feather.css">
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/mdi/css/materialdesignicons.min.css">
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/ti-icons/css/themify-icons.css">
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/typicons/typicons.css">
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/simple-line-icons/css/simple-line-icons.css">
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/css/vendor.bundle.base.css">
- <!-- endinject -->
- <!-- Plugin css for this page -->
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/js/select.dataTables.min.css">
- <!-- End plugin css for this page -->
- <!-- inject:css -->
- <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/css/vertical-layout-light/style.css">
- <!-- endinject -->
- <link rel="shortcut icon" href="/assets/css-biblio/assets-Admin/images/favicon.png" />
-</head>
-<body>
-    <div class="container-scroller"> 
-        <div class="content-wrapper">
-            <div class="col-sm-12">
-                            <div class="card card-rounded">
-                              <div class="card-body">
-                                <div class="justify-content-between align-items-start">
-                                  <div>
-    <h2>Détail du Livre</h2>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Faire un Pret </title>
+        <!-- plugins:css -->
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/feather/feather.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/ti-icons/css/themify-icons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/typicons/typicons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/simple-line-icons/css/simple-line-icons.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="/assets/style.css">
+        <!-- endinject -->
+        <!-- Plugin css for this page -->
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/js/select.dataTables.min.css">
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/css/vertical-layout-light/style.css">
+        <!-- endinject -->
+        <link rel="shortcut icon" href="/assets/css-biblio/assets-Admin/images/favicon.png" />
+      </head>
+    <body>
+        <div class="container-scroller"> 
+            <!-- partial:partials/_navbar.html -->
+            <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+              <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                  <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                    <span class="icon-menu"></span>
+                  </button>
+                </div>
+                <div>
+                 
+                </div>
+              </div>
+              <div class="navbar-menu-wrapper d-flex align-items-top"> 
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+                    <a class="btn btn-dark btn-rounded btn-fw" th:href="@{/admin/logout}">
+                      Log Out</a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                    </div>
+                  </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+                  <span class="mdi mdi-menu"></span>
+                </button>
+              </div>
+            </nav>
+            <!-- partial -->
+            <div class="container-fluid page-body-wrapper">
+              <!-- partial -->
+              <!-- partial:partials/_sidebar.html -->
+              <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/dashboard}">
+                      <i class="mdi mdi-grid-large menu-icon"></i>
+                      <span class="menu-title">Dashboard</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-category active">Pret</li>
+                  <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/pret/recherche-membre}">
+                      <i class="menu-icon mdi mdi-file-document"></i>
+                      <span class="menu-title">Faire un prêt</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/prets-en-cours}">
+                      <i class="menu-icon mdi mdi-rotate-right"></i>
+                      <span class="menu-title">Pret en cours</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="#">
+                      <i class="menu-icon mdi mdi-database"></i>
+                      <span class="menu-title">Historique de pret</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-category">Sanction</li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <i class="menu-icon mdi mdi-block-helper"></i>
+                      <span class="menu-title">Membres sanctionnés</span>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/ui-features/buttons.html">Buttons</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/ui-features/typography.html">Typography</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+              <!-- partial -->
+              <div class="main-panel">
+                <div class="content-wrapper">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="home-tab">
+                        
+                        <div class="tab-content tab-content-basic">
+                          <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
 
-    <table class="table table-striped">
-        <tr>
-            <th>ID:</th>
-            <td th:text="${livre.code}"></td>
-        </tr>
-        <tr>
-            <th>Titre:</th>
-            <td th:text="${livre.titre}"></td>
-        </tr>
-        <tr>
-            <th>ISBN:</th>
-            <td th:text="${livre.isbn}"></td>
-        </tr>
-        <tr>
-            <th>Nom Collection:</th>
-            <td th:text="${livre.nomCollection}"></td>
-        </tr>
-        <tr>
-            <th>Date Edition:</th>
-            <td th:text="${livre.dateEdition}"></td>
-        </tr>
-        <tr>
-            <th>Nom Edition:</th>
-            <td th:text="${livre.nomEdition}"></td>
-        </tr>
-        <tr>
-            <th>Nom Auteur:</th>
-            <td th:text="${livre.nomAuteur}"></td>
-        </tr>
-        <tr>
-            <th>Numero Cote:</th>
-            <td th:text="${livre.numeroCote}"></td>
-        </tr>
-        <tr>
-            <th>Couverture:</th>
-            <td th:text="${livre.couverture}"></td>
-        </tr>
-        <tr>
-            <th>Nb Pages:</th>
-            <td th:text="${livre.nbPages}"></td>
-        </tr>
-        <tr>
-            <th>Mots Cle:</th>
-            <td th:text="${livre.motsCle}"></td>
-        </tr>
-        <tr>
-            <th>Age Min:</th>
-            <td th:text="${livre.ageMin}"></td>
-        </tr>
-    </table>
-    <div class="container-scroller"> 
-        <div class="content-wrapper">
-            <div class="col-sm-3">
-                            <div class="card card-rounded">
-                              <div class="card-body">
-                                <div class="justify-content-between align-items-start">
-                                  <div>
-                                    <h2>Faire un pret</h2>
-            <br>
-    
-        <form th:action="@{/pret/valider-selection}" method="post">
-            <!-- Champ caché pour l'ID du livre -->
-            <input type="hidden" th:name="idLivre" th:value="${livre.idLivre}" />
-            
-            <!-- Options de prêt -->
-            <div>
-                <label>
-                    <input type="radio" name="typePret" value="1" checked/>
-                    Sur place
-                </label>
+
+                            
+
+                            <div class="row">
+                                <div class="col-lg-12 grid-margin stretch-card">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h2 class="text-dark">Faire un prêt</h2>
+                                            <br>
+                                            <div class="row">
+                                                <!-- Petite carte à gauche -->
+                                                <div class="col-md-3 grid-margin stretch-card">
+                                                    <div class="card bg-dark card-rounded">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div>
+                                                                    <h5 class="text-success"><span th:text="${livre.code}"></span></h5>
+                                                                    <h2 class="text-light"><span th:text="${livre.titre}"></span></h2>
+                                                                    <h4 class="text-warning">Auteur</h4>
+                                                                    <img src="/images/harry_potter_1.png" alt="harry_potter_1" class="img-fluid mb-2">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Grande carte à droite -->
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <!-- Carte supérieure droite -->
+                                                        <div class="col-md-12 grid-margin stretch-card">
+                                                            <div class="card bg-light card-rounded">
+                                                                <div class="card-body">
+                                                                    <h2 class="text-dark">Choisir le type de prêt</h2>
+                                                                    <form th:action="@{/pret/valider-selection}" method="post" class="forms-sample">
+                                                                        <div class="form-group">
+                                                                            <input type="hidden" th:name="idLivre" th:value="${livre.idLivre}" />
+                                                                            <div class="form-check form-check-success">
+                                                                                <label class="form-check-label">
+                                                                                    <input type="radio" class="form-check-input"  name="typePret" value="1" id="surPlace" checked>
+                                                                                    Lecture Sur Place
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-check form-check-success">
+                                                                                <label class="form-check-label">
+                                                                                    <input type="radio" class="form-check-input"  name="typePret" value="2" id="aDomicile">
+                                                                                    Lecture A Domicile
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-success text-white">Valider la sélection</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Nouvelle carte inférieure droite avec un tableau -->
+                                                        <div class="col-md-12 grid-margin stretch-card" th:if="${not #lists.isEmpty(autorisations)}">
+                                                          <div class="card bg-light card-rounded">
+                                                              <div class="card-body">
+                                                                  <h2 class="text-dark">Autorisations</h2>
+                                                                  <table class="table">
+                                                                      <thead>
+                                                                          <tr>
+                                                                              <th>Livre</th>
+                                                                              <th>Code</th>
+                                                                              <th>Categorie</th>
+                                                                              <th>Type prêt</th>
+                                                                          </tr>
+                                                                      </thead>
+                                                                      <tbody>
+                                                                          <tr th:each="autorisation : ${autorisations}">
+                                                                              <td th:text="${autorisation.titre}">titre</td>
+                                                                              <td th:text="${autorisation.code}">code</td>
+                                                                              <td th:text="${autorisation.nomCategorie}">nom_categorie</td>
+                                                                              <td th:text="${autorisation.nomTypePret}">nom_type_pret</td>
+                                                                          </tr>
+                                                                      </tbody>
+                                                                  </table>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                    </div> <!-- Fin de la nouvelle rangée -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+
+
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <br>
-            <div>
-                <label>
-                    <input type="radio" name="typePret" value="2"/>
-                    À domicile
-                </label>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bibliotheque - Examen Final - Framework</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">ETU2135 - N°44</span>
             </div>
-            <br>
-            
-            <button type="submit" class="btn btn-success text-white me-0">Valider la sélection</button>
-        </form>
-    <br>
-        <div th:if="${errorMessage}" style="color: red;" class="alert alert-danger">
-            <p th:text="${errorMessage}"></p>
+          </footer>
+          <!-- partial -->
         </div>
-    <br>
-        <a href="/pret/recherche-membre" class="btn btn-primary text-white me-0">Retour à la liste des livres</a>
-    
+        <!-- main-panel ends -->
+      </div>
+    <!-- page-body-wrapper ends -->
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    
-<div>
-  </div>
-  </div>
-</div>
-</div>
 
 
-</div>
+<script src="/assets/css-biblio/assets-Admin/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="/assets/css-biblio/assets-Admin/vendors/chart.js/Chart.min.js"></script>
+<script src="/assets/css-biblio/assets-Admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/css-biblio/assets-Admin/vendors/progressbar.js/progressbar.min.js"></script>
+
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="/assets/css-biblio/assets-Admin/js/off-canvas.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/hoverable-collapse.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/template.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/settings.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="/assets/css-biblio/assets-Admin/js/dashboard.js"></script>
+<script src="/assets/css-biblio/assets-Admin/js/Chart.roundedBarCharts.js"></script>
+
 </body>
 </html>

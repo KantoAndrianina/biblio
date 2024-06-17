@@ -75,7 +75,7 @@ CREATE TABLE Pret (
 );
 ALTER TABLE Pret ADD COLUMN date_rendu_pret DATE;
 
-CREATE TABLE AutorisationException (
+CREATE TABLE autorisation_exception (
     id_autorisation SERIAL PRIMARY KEY UNIQUE,
     id_livre INTEGER REFERENCES Livre(id_livre),
     id_cat_membre INTEGER REFERENCES CategorieMembre(id_cat_membre),
@@ -274,3 +274,11 @@ CREATE VIEW v_exemplaire_dispos AS
         v_prets p ON ex.id_exemplaire = p.id_exemplaire AND p.date_rendu_pret IS NULL
     WHERE 
         p.id_pret IS NULL;
+
+CREATE VIEW v_autorisation_details AS
+    SELECT ae.id_autorisation, ae.id_livre, l.titre, l.code, l.age_min,
+        ae.id_cat_membre, cm.nom_categorie, ae.id_type_pret, tp.nom_type_pret
+    FROM autorisation_exception ae
+    JOIN Livre l ON ae.id_livre = l.id_livre
+    JOIN CategorieMembre cm ON ae.id_cat_membre = cm.id_cat_membre
+    JOIN TypePret tp ON ae.id_type_pret = tp.id_type_pret;

@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/typicons/typicons.css">
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/simple-line-icons/css/simple-line-icons.css">
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="/assets/style.css">
         <!-- endinject -->
         <!-- Plugin css for this page -->
         <link rel="stylesheet" href="/assets/css-biblio/assets-Admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -37,7 +38,14 @@
                 </div>
               </div>
               <div class="navbar-menu-wrapper d-flex align-items-top"> 
-                
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+                    <a class="btn btn-dark btn-rounded btn-fw" th:href="@{/admin/logout}">
+                      Log Out</a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                    </div>
+                  </li>
+                </ul>
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
                   <span class="mdi mdi-menu"></span>
                 </button>
@@ -45,32 +53,12 @@
             </nav>
             <!-- partial -->
             <div class="container-fluid page-body-wrapper">
-              <!-- partial:partials/_settings-panel.html -->
-              <div class="theme-setting-wrapper">
-                <div id="settings-trigger"><i class="ti-settings"></i></div>
-                <div id="theme-settings" class="settings-panel">
-                  <i class="settings-close ti-close"></i>
-                  <p class="settings-heading">SIDEBAR SKINS</p>
-                  <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border me-3"></div>Light</div>
-                  <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border me-3"></div>Dark</div>
-                  <p class="settings-heading mt-2">HEADER SKINS</p>
-                  <div class="color-tiles mx-0 px-4">
-                    <div class="tiles success"></div>
-                    <div class="tiles warning"></div>
-                    <div class="tiles danger"></div>
-                    <div class="tiles info"></div>
-                    <div class="tiles dark"></div>
-                    <div class="tiles default"></div>
-                  </div>
-                </div>
-              </div>
-            
               <!-- partial -->
               <!-- partial:partials/_sidebar.html -->
               <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                   <li class="nav-item active">
-                    <a class="nav-link active" href="/assets/css-biblio/assets-Admin/index.html">
+                    <a class="nav-link active" th:href="@{/admin/dashboard}">
                       <i class="mdi mdi-grid-large menu-icon"></i>
                       <span class="menu-title">Dashboard</span>
                     </a>
@@ -78,16 +66,27 @@
                   <li class="nav-item nav-category">Pret</li>
                   <li class="nav-item">
                     <a class="nav-link" th:href="@{/pret/recherche-membre}">
-                        <i class="menu-icon mdi mdi-file-document"></i>
-                        <span class="menu-title">Faire un prêt</span>
-                      </a>
+                      <i class="menu-icon mdi mdi-file-document"></i>
+                      <span class="menu-title">Faire un prêt</span>
+                    </a>
                   </li>
-                  <li class="nav-item nav-category">UI Elements</li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="/assets/css-biblio/assets-Admin/#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                      <i class="menu-icon mdi mdi-floor-plan"></i>
-                      <span class="menu-title">UI Elements</span>
-                      <i class="menu-arrow"></i> 
+                    <a class="nav-link" th:href="@{/admin/prets-en-cours}">
+                      <i class="menu-icon mdi mdi-rotate-right"></i>
+                      <span class="menu-title">Pret en cours</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="#">
+                      <i class="menu-icon mdi mdi-database"></i>
+                      <span class="menu-title">Historique de pret</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-category">Sanction</li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <i class="menu-icon mdi mdi-block-helper"></i>
+                      <span class="menu-title">Membres sanctionnés</span>
                     </a>
                     <div class="collapse" id="ui-basic">
                       <ul class="nav flex-column sub-menu">
@@ -97,69 +96,6 @@
                       </ul>
                     </div>
                   </li>
-                  <li class="nav-item nav-category">Forms and Datas</li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="/assets/css-biblio/assets-Admin/#form-elements" aria-expanded="false" aria-controls="form-elements">
-                      <i class="menu-icon mdi mdi-card-text-outline"></i>
-                      <span class="menu-title">Form elements</span>
-                      <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="form-elements">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/forms/basic_elements.html">Basic Elements</a></li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="/assets/css-biblio/assets-Admin/#charts" aria-expanded="false" aria-controls="charts">
-                      <i class="menu-icon mdi mdi-chart-line"></i>
-                      <span class="menu-title">Charts</span>
-                      <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="charts">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/charts/chartjs.html">ChartJs</a></li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="/assets/css-biblio/assets-Admin/#tables" aria-expanded="false" aria-controls="tables">
-                      <i class="menu-icon mdi mdi-table"></i>
-                      <span class="menu-title">Tables</span>
-                      <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="tables">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/tables/basic-table.html">Basic table</a></li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="/assets/css-biblio/assets-Admin/#icons" aria-expanded="false" aria-controls="icons">
-                      <i class="menu-icon mdi mdi-layers-outline"></i>
-                      <span class="menu-title">Icons</span>
-                      <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="icons">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/icons/mdi.html">Mdi icons</a></li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="nav-item nav-category">pages</li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="/assets/css-biblio/assets-Admin/#auth" aria-expanded="false" aria-controls="auth">
-                      <i class="menu-icon mdi mdi-account-circle-outline"></i>
-                      <span class="menu-title">User Pages</span>
-                      <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="auth">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="/assets/css-biblio/assets-Admin/pages/samples/login.html"> Login </a></li>
-                      </ul>
-                    </div>
-                  </li>
-                 
                 </ul>
               </nav>
               <!-- partial -->
@@ -168,65 +104,68 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="home-tab">
-                        <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                          <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                              <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="/assets/css-biblio/assets-Admin/#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="/assets/css-biblio/assets-Admin/#audiences" role="tab" aria-selected="false">Audiences</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="/assets/css-biblio/assets-Admin/#demographics" role="tab" aria-selected="false">Demographics</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="/assets/css-biblio/assets-Admin/#more" role="tab" aria-selected="false">More</a>
-                            </li>
-                          </ul>
-                          <div>
-                            <div class="btn-wrapper">
-                              <a href="/assets/css-biblio/assets-Admin/#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
-                              <a href="/assets/css-biblio/assets-Admin/#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
-                              <a href="/assets/css-biblio/assets-Admin/#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
-                            </div>
-                          </div>
-                        </div>
+                        
                         <div class="tab-content tab-content-basic">
                           <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
                               
                             
-                            <div class="row">
-                              <div class="col-lg-12 d-flex flex-column">
-                                <div class="row flex-grow">
-                                  <div class="col-12 grid-margin stretch-card">
-                                    <div class="card card-rounded">
-                                      <div class="card-body">
-                                        <div class="d-sm-flex justify-content-between align-items-start">
-                                          <div>
-                                            <h2 >Welcome</h2>
-                                            <h4 class="card-title card-title-dash">Admin ID: <span th:text="${adminId}"></span></h4>
-                                            <br>
-                                            <br>
 
-                                          </div>
-                                          <div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="d-sm-flex align-items-center mt-1 justify-content-between">
-                                          <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
-                                          <div class="me-3"><div id="marketing-overview-legend"></div></div>
-                                        </div>
-                                        <div class="chartjs-bar-wrapper mt-3">
-                                          <canvas id="marketingOverview"></canvas>
-                                        </div>
+                            <div class="row">
+                              <div class="col-md-4  grid-margin stretch-card">
+                                <div class="card bg-dark card-rounded">
+                                  <div class="card-body pb-0">
+                                    <h4 class="card-title card-title-dash text-white mb-12">Livre le plus emprunté</h4>
+                                    <br>
+                                    <div class="row">
+                                      <div>
+                                        <p class="status-summary-ight-white mb-1"><span th:text="${livrePlusEmprunte.nombreEmprunts}"></span> fois</p>
+                                        <h2 class="text-light"><span th:text="${livrePlusEmprunte.titre}">></span></h2>
+                                        <h4 class="text-warning"><span th:text="${livrePlusEmprunte.nomAuteur}">></span></h4>
+                                        <img src="/images/harry_potter_1.png" alt="harry_potter_1" class="img-fluid">
                                       </div>
+                                      
                                     </div>
                                   </div>
                                 </div>
-                               
                               </div>
+
+
+                              <div class="col-lg-6 grid-margin stretch-card">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h4 class="card-title">Livres les plus empruntés</h4>
+                                    
+                                    <div class="table-responsive">
+                                      <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th>Titre</th>
+                                            <th>Auteur</th>
+                                            <th class="align-right">Nb d'emprunts</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr th:each="livre : ${livresPlusEmpruntes}">
+                                              <td th:text="${livre.titre}"></td>
+                                              <td th:text="${livre.nomAuteur}"></td>
+                                              <td class="align-right">
+                                                  <label th:classappend="${livre.nombreEmprunts == 0} ? 'badge badge-danger' : 'badge badge-info'"
+                                                        th:text="${livre.nombreEmprunts}">
+                                                  </label>
+                                              </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                               
+
+
+
+
                           </div>
                         </div>
                       </div>
@@ -237,8 +176,8 @@
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
                   <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="/assets/css-biblio/assets-Admin/https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
-                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Bibliotheque - Examen Final - Framework</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">ETU2135 - N°44</span>
                   </div>
                 </footer>
                 <!-- partial -->
