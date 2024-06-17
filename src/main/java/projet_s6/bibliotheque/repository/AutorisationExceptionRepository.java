@@ -11,4 +11,6 @@ import projet_s6.bibliotheque.model.AutorisationException;
 
 @Repository
 public interface AutorisationExceptionRepository extends JpaRepository<AutorisationException, Integer> {
+
+    List<AutorisationException> findByIdLivre(Integer idLivre);
 }

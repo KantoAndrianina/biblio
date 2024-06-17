@@ -14,10 +14,14 @@ import java.util.Date;
 import java.util.List;
 import java.sql.*;
 
+import projet_s6.bibliotheque.model.AutorisationException;
 import projet_s6.bibliotheque.model.Membre;
 import projet_s6.bibliotheque.model.MembreCategorie;
 import projet_s6.bibliotheque.model.Pret;
+import projet_s6.bibliotheque.model.VAutorisationDetail;
 import projet_s6.bibliotheque.model.VLivreComplet;
+import projet_s6.bibliotheque.service.AutorisationDetailService;
+import projet_s6.bibliotheque.service.AutorisationExceptionService;
 import projet_s6.bibliotheque.service.LivreService;
 import projet_s6.bibliotheque.service.MembreCategorieService;
 import projet_s6.bibliotheque.service.MembreService;
@@ -41,6 +45,9 @@ public class PretController {
 
     @Autowired
     private PretService pretService;
+
+    @Autowired
+    private AutorisationDetailService autorisationDetailService;
 
     // @GetMapping("/pret")
     // public String showPretPage() {
@@ -77,6 +84,9 @@ public class PretController {
         VLivreComplet livre = livreService.findLivreById(id);
         model.addAttribute("livre", livre);
         
+        List<VAutorisationDetail> autorisations = autorisationDetailService.findAutorisationDetailByLivreId(id);
+        model.addAttribute("autorisations", autorisations);
+
         return "admin/selection_livre"; 
     }
 
@@ -123,7 +133,7 @@ public class PretController {
             model.addAttribute("dateDebutPret", dateDebutPret);
             model.addAttribute("dateFinPret", dateFinPret);
 
-            return "admin/confirmation_pret"; 
+            return "redirect:/admin/prets-en-cours";
 
         } catch (Exception e) {
             VLivreComplet livre = livreService.findLivreById(idLivre);

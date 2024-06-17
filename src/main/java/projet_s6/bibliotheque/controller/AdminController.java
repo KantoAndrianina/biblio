@@ -44,19 +44,13 @@ public class AdminController {
 
     @GetMapping("/admin/dashboard")
     public String showDashboard(@SessionAttribute("adminId") Long adminId, Model model) {
-        model.addAttribute("adminId", adminId);
-        return "admin/dashboard";
-    }
-
-    @GetMapping("/admin/liste_plus_emprunt")
-    public String listePlusEmprunt(Model model) {
         List<LivreEmprunt> livresPlusEmpruntes = livreService.findTop10LivresEmpruntes();
         LivreEmprunt livrePlusEmprunte = livreService.findLivrePlusEmprunte();
 
         model.addAttribute("livresPlusEmpruntes", livresPlusEmpruntes);
         model.addAttribute("livrePlusEmprunte", livrePlusEmprunte);
-
-        return "admin/livre_plus_emprunt";
+        model.addAttribute("adminId", adminId);
+        return "admin/dashboard";
     }
 
     @GetMapping("/admin/logout")

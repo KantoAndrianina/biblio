@@ -19,4 +19,8 @@ public class AutorisationExceptionService {
     public List<AutorisationException> getAllAutorisations() {
         return autorisationExceptionRepository.findAll();
     }
+
+    public List<AutorisationException> findAutorisationsByLivreId(Integer idLivre) {
+        return autorisationExceptionRepository.findByIdLivre(idLivre);
+    }
 }
